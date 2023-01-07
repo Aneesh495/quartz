@@ -1,0 +1,12 @@
+.dub/
+.runtime/
+build/
+*.o
+*.obj
+*.exe
+*.pdb
+quartz
+quartz-test
+.DS_Store
+*.lst
+__pycache__/

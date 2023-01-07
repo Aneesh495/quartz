@@ -1,0 +1,23 @@
+{
+  "name": "quartz",
+  "description": "Deterministic physical-layer laboratory: rational clocks, coding, modems, channels, and replayable receipts.",
+  "authors": ["Aneesh Krishna"],
+  "license": "MIT",
+  "copyright": "Copyright (c) 2026 Aneesh Krishna",
+  "targetType": "executable",
+  "targetName": "quartz",
+  "sourcePaths": ["source"],
+  "mainSourceFile": "source/app.d",
+  "buildRequirements": ["allowWarnings"],
+  "buildTypes": {
+    "debug": {
+      "buildOptions": ["debugMode", "optimize", "debugInfo"]
+    },
+    "release": {
+      "buildOptions": ["optimize", "inline", "releaseMode"]
+    },
+    "unittest": {
+      "buildOptions": ["unittests", "debugMode", "optimize", "debugInfo"]
+    }
+  }
+}

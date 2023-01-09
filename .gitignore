@@ -5,8 +5,8 @@ build/
 *.obj
 *.exe
 *.pdb
-quartz
-quartz-test
+/quartz
+/quartz-test
 .DS_Store
 *.lst
 __pycache__/

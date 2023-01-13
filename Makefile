@@ -1,25 +1,28 @@
 # Quartz builds with LDC or DMD. No third-party D libraries are required.
+# Compiler detection happens in the recipe so a toolchain installed by
+# tools/ensure_ldc.sh is visible before Dub is invoked.
 
 ROOT := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 export PATH := $(ROOT)/.toolchain/bin:$(PATH)
 
 DUB ?= dub
-COMPILER ?=
 
-ifeq ($(COMPILER),)
-  COMPILER := $(shell command -v ldc2 >/dev/null 2>&1 && echo ldc2 || (command -v dmd >/dev/null 2>&1 && echo dmd || echo))
-endif
-
-.PHONY: all test check demo clean toolchain
+.PHONY: all release test check demo clean toolchain
 
 all: toolchain
-	$(DUB) build --compiler=$(COMPILER) --build=debug
+	@compiler='$(COMPILER)'; \
+	if [ -z "$$compiler" ]; then compiler=$$(bash $(ROOT)/tools/compiler.sh); fi; \
+	$(DUB) build --compiler="$$compiler" --build=debug
 
 release: toolchain
-	$(DUB) build --compiler=$(COMPILER) --build=release
+	@compiler='$(COMPILER)'; \
+	if [ -z "$$compiler" ]; then compiler=$$(bash $(ROOT)/tools/compiler.sh); fi; \
+	$(DUB) build --compiler="$$compiler" --build=release
 
 test: toolchain
-	$(DUB) test --compiler=$(COMPILER)
+	@compiler='$(COMPILER)'; \
+	if [ -z "$$compiler" ]; then compiler=$$(bash $(ROOT)/tools/compiler.sh); fi; \
+	$(DUB) test --compiler="$$compiler"
 
 check: test
 	./quartz loopback
@@ -36,14 +39,7 @@ demo: all
 	./quartz run examples/ofdm_wifi.qz --out .runtime/wifi
 
 toolchain:
-	@if [ -z "$(COMPILER)" ]; then \
-		echo "No D compiler on PATH. Running tools/ensure_ldc.sh"; \
-		bash $(ROOT)/tools/ensure_ldc.sh; \
-		if ! command -v ldc2 >/dev/null 2>&1; then \
-			echo "ldc2 is still unavailable. Install LDC and retry." >&2; \
-			exit 1; \
-		fi; \
-	fi
+	@bash $(ROOT)/tools/ensure_ldc.sh
 
 clean:
 	-$(DUB) clean

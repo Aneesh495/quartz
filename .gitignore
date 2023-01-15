@@ -8,6 +8,7 @@ build/
 *.pdb
 /quartz
 /quartz-test
+/quartz-test-application
 .DS_Store
 *.lst
 __pycache__/

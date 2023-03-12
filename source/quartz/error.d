@@ -19,7 +19,7 @@ class QuartzError : Exception {
     }
 }
 
-string formatError(QuartzError err) {
+@safe string formatError(QuartzError err) {
     if (err.where.length == 0) {
         return err.msg;
     }

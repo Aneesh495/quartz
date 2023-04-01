@@ -1,0 +1,14 @@
+experiment qpsk_rrc {
+  seed = 3;
+  bits = 400;
+  ebn0_db = 12;
+  rate_hz = 48000;
+  modem qpsk {
+    sps = 4;
+    pulse = rrc;
+    beta = 0.35;
+    span = 8;
+  }
+  code none;
+  channel awgn;
+}

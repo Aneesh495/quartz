@@ -1,0 +1,12 @@
+experiment qpsk_clean {
+  seed = 1;
+  bits = 256;
+  modem qpsk {
+    sps = 4;
+    pulse = rrc;
+    beta = 0.25;
+    span = 8;
+  }
+  code none;
+  channel none;
+}

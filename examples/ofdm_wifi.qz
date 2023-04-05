@@ -1,0 +1,13 @@
+experiment ofdm_wifi {
+  seed = 5;
+  bits = 416;
+  ebn0_db = 14;
+  rate_hz = 20000000;
+  modem ofdm_qpsk;
+  ofdm {
+    nfft = 64;
+    cp = 16;
+  }
+  code none;
+  channel awgn;
+}

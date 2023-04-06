@@ -1,0 +1,11 @@
+experiment hamming_awgn {
+  seed = 9;
+  bits = 400;
+  ebn0_db = 4;
+  modem bpsk {
+    sps = 1;
+    pulse = rect;
+  }
+  code hamming74;
+  channel awgn;
+}

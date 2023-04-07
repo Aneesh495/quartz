@@ -1,0 +1,13 @@
+experiment repetition {
+  seed = 8;
+  bits = 200;
+  ebn0_db = 2;
+  modem bpsk {
+    sps = 1;
+    pulse = rect;
+  }
+  code repetition {
+    repeat = 3;
+  }
+  channel awgn;
+}

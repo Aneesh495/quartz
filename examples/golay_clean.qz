@@ -1,0 +1,10 @@
+experiment golay_clean {
+  seed = 2;
+  bits = 48;
+  modem bpsk {
+    sps = 1;
+    pulse = rect;
+  }
+  code golay23;
+  channel none;
+}

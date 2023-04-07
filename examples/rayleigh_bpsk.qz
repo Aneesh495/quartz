@@ -1,0 +1,11 @@
+experiment rayleigh_bpsk {
+  seed = 4;
+  bits = 6000;
+  ebn0_db = 10;
+  modem bpsk {
+    sps = 1;
+    pulse = rect;
+  }
+  code none;
+  channel rayleigh;
+}

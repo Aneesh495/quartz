@@ -1,0 +1,10 @@
+experiment conv_clean {
+  seed = 6;
+  bits = 64;
+  modem bpsk {
+    sps = 1;
+    pulse = rect;
+  }
+  code conv12;
+  channel none;
+}

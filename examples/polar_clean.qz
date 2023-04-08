@@ -1,0 +1,10 @@
+experiment polar_clean {
+  seed = 10;
+  bits = 64;
+  modem bpsk {
+    sps = 1;
+    pulse = rect;
+  }
+  code polar;
+  channel none;
+}

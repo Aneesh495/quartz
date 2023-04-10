@@ -1,0 +1,10 @@
+experiment qam16_clean {
+  seed = 12;
+  bits = 128;
+  modem qam16 {
+    sps = 1;
+    pulse = rect;
+  }
+  code none;
+  channel none;
+}

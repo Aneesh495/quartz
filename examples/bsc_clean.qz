@@ -1,0 +1,12 @@
+experiment bsc_clean {
+  seed = 1;
+  bits = 80;
+  modem bpsk {
+    sps = 1;
+    pulse = rect;
+  }
+  code hamming74;
+  channel bsc {
+    crossover = 0;
+  }
+}

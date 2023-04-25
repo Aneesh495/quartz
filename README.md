@@ -28,7 +28,8 @@ If no compiler is on `PATH`, `make` downloads a user-local LDC into
 command.
 
 `make check` builds the binary, runs the in-source tests, then executes the
-loopback battery and three example experiments. Artifacts land in `.runtime/`.
+loopback battery, the theory table, and three example experiments. Receipts
+land in `.runtime/`.
 
 ```sh
 ./quartz loopback
@@ -39,9 +40,10 @@ loopback battery and three example experiments. Artifacts land in `.runtime/`.
 ./quartz run examples/ofdm_wifi.qz --out .runtime/wifi
 ```
 
-Open `.runtime/wifi/constellation.png` and `.runtime/wifi/waterfall.png` after
-the OFDM example. Both files are written by Quartz itself. There is no
-plotting library.
+`quartz run` writes `receipt.json` and the canonical plan when you pass
+`--out`. A BPSK trial at 6 dB comes back with an error count in the
+neighborhood of the erfc formula. The silent QPSK and OFDM examples come back
+with none.
 
 ## A small experiment
 
@@ -75,12 +77,12 @@ lock of a loop, monotonic BER).
 | Coding | CRC, Hamming, Golay, Reed-Solomon, BCH, convolutional Viterbi and BCJR, polar SC, IRA-LDPC, Reed-Muller |
 | DSP | Windowed FIR, RRC, Butterworth SOS, radix-2 and Bluestein FFT, polyphase resampling, CORDIC, CIC, LMS, CMA |
 | Modem | PSK, QAM, FSK, MSK, GMSK, pi/4-QPSK, differential PSK, 802.11-style OFDM |
-| Recovery | PI loops, PLL, Costas, Gardner, Mueller and Muller, early-late, preamble correlation |
-| Channel | Seeded AWGN, BSC, Rayleigh, Rician, Jakes, tapped delay, CFO, phase noise, IQ imbalance, quantization |
-| MIMO | Alamouti, ZF, MMSE, sphere decoder, matched and zero-forcing precoders |
-| Language | Lexer, parser, semantic check, canonical printer, lowering to a DAG |
-| Runtime | Topological sample scheduler, dual float and fixed-point ledger, SHA-256 receipts |
-| Pictures | Dependency-free WAV, complex sample files, PPM, and PNG |
+| Recovery | Preamble correlation, a phase-locked loop that pulls a tone onto the real axis |
+| Channel | Seeded AWGN, BSC, coherent Rayleigh, a tapped delay line, carrier offset on the raised-cosine path |
+| MIMO | Alamouti, zero forcing, MMSE, a BPSK sphere search checked against brute force |
+| Language | Lexer, parser, semantic check, canonical plan text |
+| Runtime | Seeded executor for symbols, raised cosine, and OFDM, plus a DAG schedule check and SHA-256 receipts |
+| Pictures | Uncompressed PNG, including a constellation scatter, and 16-bit WAV |
 
 The DAG is acyclic on purpose. A phase-locked loop holds its feedback inside
 one node. The scheduler never has to solve a cyclic sample dependency, and a
@@ -94,6 +96,10 @@ receipt can hash the schedule.
 - [Coding](docs/coding.md)
 - [Waveforms](docs/waveforms.md)
 - [Channels](docs/channels.md)
+- [MIMO](docs/mimo.md)
+- [Synchronization](docs/sync.md)
+- [Receipts](docs/receipts.md)
+- [Build](docs/build.md)
 - [Verification](docs/verification.md)
 
 ## License

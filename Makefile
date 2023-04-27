@@ -24,7 +24,7 @@ test: toolchain
 	if [ -z "$$compiler" ]; then compiler=$$(bash $(ROOT)/tools/compiler.sh); fi; \
 	$(DUB) test --compiler="$$compiler"
 
-check: test
+check: all test
 	./quartz loopback
 	./quartz theory bpsk --ebn0 0,4,8
 	./quartz run examples/bpsk_awgn.qz --out .runtime/bpsk

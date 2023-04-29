@@ -340,7 +340,11 @@ bool[] throughOfdm(ExperimentPlan plan, const(bool)[] coded, ref Xoshiro256 rng)
         }
         auto frame = ofdmModulate(spec, chunk);
         if (plan.channel == ChannelKind.awgn) {
+            // The receiver FFT is unnormalized, so a time-domain noise sample
+            // grows by sqrt(N) in the bin. Divide here to keep Eb/N0 at the
+            // constellation, which is where the demapper scores bits.
             double sigma = noiseSigma(1.0, plan.ebn0Db, 2, nominalRate(plan));
+            sigma /= sqrt(cast(double) spec.nfft);
             foreach (ref s; frame) {
                 s = s + Complex!double(sigma * rng.nextGaussian(), sigma * rng.nextGaussian());
             }

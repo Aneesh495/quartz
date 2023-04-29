@@ -13,10 +13,12 @@ receipts depend on.
 ## AWGN
 
 On the symbol path, noise is added to each constellation point with the sigma
-from the Eb/N0 formula. On the raised-cosine and OFDM paths, the same sigma
-is added per sample. That is a convenient laboratory knob. It is not a claim
-that the sample-rate noise has been matched to a particular noise bandwidth.
-Silent checks (`channel none`) are the exact tests for those paths.
+from the Eb/N0 formula. OFDM divides that sigma by the square root of the FFT
+length before adding it in the time domain, because the receiver FFT is
+unnormalized and would otherwise multiply the bin noise by that factor.
+Raised-cosine noise is still per sample: the matched filter's noise bandwidth
+is not folded into the formula. Silent checks (`channel none`) remain the
+exact tests for the waveform paths.
 
 ## Rayleigh
 
